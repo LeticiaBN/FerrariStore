@@ -13,7 +13,14 @@
 
 ### Website
 
-*Link
+[https://ferraristore.vercel.app](https://ferraristore.vercel.app)
+
+### Admin Access for Testing
+
+To test the **admin features** of the platform, use the credentials below to log in:
+
+* **Email:** `admin@gmail.com`
+* **Password:** `admin123`
 
 ### Project Description
 
@@ -27,6 +34,7 @@ This project is divided into two parts:
 * `backend` (Node.js)
 
 Follow the steps below to run the application locally.
+
 #### 1. Open Two Terminals and Navigate to the Project Folders
 
 In the root directory of the project, open **two separate terminals**:
@@ -57,45 +65,7 @@ This will install all the required dependencies for both frontend and backend.
 
 ---
 
-#### 3. Set Environment Variables
-
-##### In the `frontend` folder:
-
-Create a file named `.env` and add the following:
-
-```
-NEXT_PUBLIC_API_URL=http://localhost:5000
-```
-
-##### In the `backend` folder:
-
-Create a file named `.env` and add the following:
-
-```
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string_here
-JWT_SECRET=ferrari_secret_jwt_2024
-```
-
-Replace `your_mongodb_connection_string_here` with the actual MongoDB URI you'll get in the next step.
-
----
-
-#### 4. Configure MongoDB Atlas
-
-1. Go to [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
-2. Create an account or log in.
-3. Create a new **cluster** (or use an existing one).
-4. Create a database user.
-5. Click **"Connect"** to connect to application and get your **MongoDB connection string (URI)**.
-6. Copy the URI and paste it in the `.env` file inside the `backend` folder where it says `your_mongodb_connection_string_here`.
-7. Click in **"Done"**.
-8. Go to **Network Access** in MongoDB Atlas.
-9. Add your **current IP address** to the list of allowed IPs.
-
----
-
-#### 5. Run the Project
+#### 3. Run the Project
 
 In both terminals, run:
 
@@ -108,39 +78,18 @@ npm run dev
 
 ---
 
-
-# For reviwers 
+## For reviwers 
 
 You can create your own account to test the user features.
 
-## Admin Access Setup
+### Admin Access Setup
 
-To test the **admin features** of the platform, follow the steps below:
+To test the **admin features** of the platform, use the credentials below to log in:
 
-1. **Create an account** and **log in** to the platform.
-
-2. Go to [MongoDB Atlas](https://www.mongodb.com/products/platform/atlas-database).
-
-3. In the MongoDB Atlas dashboard:
-
-   * Click on **"Clusters"**.
-   * Click on **"Browse Collections"**.
-
-4. In the **`test`** database:
-
-   * Open the **`users`** collection.
-   * Find your user document.
-   * Change the value of the `admin` attribute to `true`.
-
-5. Return to the platform:
-
-   * Click the **Logout** button.
-   * Log in again.
-
-Now your user has **admin privileges**, and you can access the **admin page**.
+* **Email:** `admin@gmail.com`
+* **Password:** `admin123`
 
 # Navigation Diagram
-
 
 ```mermaid
   graph TD;
