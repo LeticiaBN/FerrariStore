@@ -203,6 +203,10 @@ module.exports = class UserController {
 
       // Atualizar campo admin apenas se o usuário que está fazendo a alteração for admin
       if (typeof admin === 'boolean' && userFromToken.admin) {
+        // Verificar se o admin está tentando remover seus próprios privilégios
+        if (userId === userFromToken._id.toString() && admin === false) {
+          return res.status(422).json({ message: 'Você não pode remover seus próprios privilégios de administrador' });
+        }
         user.admin = admin;
       }
 
@@ -825,6 +829,11 @@ module.exports = class UserController {
 
       if (!currentUser.admin) {
         return res.status(401).json({ message: 'Acesso negado' });
+      }
+
+      // Verificar se o admin está tentando excluir a si mesmo
+      if (currentUser._id.toString() === id) {
+        return res.status(422).json({ message: 'Você não pode excluir sua própria conta' });
       }
 
       // Verificar se id e valido

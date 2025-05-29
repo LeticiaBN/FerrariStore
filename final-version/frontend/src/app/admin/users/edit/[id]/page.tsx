@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
-import { API_URL, authFetchConfig, isAdmin, isAuthenticated } from "@/lib/api"
+import { API_URL, authFetchConfig, isAdmin, isAuthenticated, getCurrentUserId } from "@/lib/api"
 import { IUser } from "@/types/models"
 import { Loader2 } from "lucide-react"
 
@@ -224,6 +224,11 @@ export default function EditUserPage() {
     }
   }
 
+  // Verifica se o usuário sendo editado é o próprio administrador logado
+  const currentUserId = getCurrentUserId()
+  const isEditingSelf = id === currentUserId
+  const canChangeAdminStatus = !isEditingSelf
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -295,8 +300,16 @@ export default function EditUserPage() {
               {errors.confirmPassword && <p className="text-xs text-red-600">{errors.confirmPassword}</p>}
             </div>
             <div className="flex items-center space-x-2">
-              <Switch id="admin" checked={formData.admin} onCheckedChange={handleSwitchChange} />
-              <Label htmlFor="admin">Usuário Administrador</Label>
+              <Switch 
+                id="admin" 
+                checked={formData.admin} 
+                onCheckedChange={handleSwitchChange}
+                disabled={!canChangeAdminStatus}
+              />
+              <Label htmlFor="admin" className={!canChangeAdminStatus ? "text-gray-400" : ""}>
+                Usuário Administrador
+                {!canChangeAdminStatus && <span className="text-xs text-gray-500 block">Você não pode remover seus próprios privilégios de administrador</span>}
+              </Label>
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">

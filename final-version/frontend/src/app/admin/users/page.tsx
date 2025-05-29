@@ -18,7 +18,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/components/ui/use-toast"
-import { API_URL, authFetchConfig, isAdmin, isAuthenticated } from "@/lib/api"
+import { API_URL, authFetchConfig, isAdmin, isAuthenticated, getCurrentUserId } from "@/lib/api"
 import { IUser } from "@/types/models"
 
 const formatDate = (dateString: string) => {
@@ -210,6 +210,9 @@ interface UserCardProps {
 }
 
 function UserCard({ user, onEdit, onDelete }: UserCardProps) {
+  const currentUserId = getCurrentUserId()
+  const isCurrentUser = user._id === currentUserId
+  
   return (
     <Card>
       <CardContent className="p-0">
@@ -234,28 +237,40 @@ function UserCard({ user, onEdit, onDelete }: UserCardProps) {
             Editar
           </Button>
           <div className="w-px bg-gray-200" />
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="ghost" className="flex-1 rounded-none text-red-600 hover:bg-red-50 hover:text-red-700">
-                <Trash2 className="mr-2 h-4 w-4" />
-                Excluir
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Excluir Usuário</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Tem certeza que deseja excluir {user.name}? Esta ação não pode ser desfeita.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction className="bg-red-600 hover:bg-red-700" onClick={() => onDelete(user._id as string)}>
+          {isCurrentUser ? (
+            <Button 
+              variant="ghost" 
+              className="flex-1 rounded-none text-gray-400 cursor-not-allowed" 
+              disabled
+              title="Você não pode excluir sua própria conta"
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Excluir
+            </Button>
+          ) : (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" className="flex-1 rounded-none text-red-600 hover:bg-red-50 hover:text-red-700">
+                  <Trash2 className="mr-2 h-4 w-4" />
                   Excluir
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Excluir Usuário</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Tem certeza que deseja excluir {user.name}? Esta ação não pode ser desfeita.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction className="bg-red-600 hover:bg-red-700" onClick={() => onDelete(user._id as string)}>
+                    Excluir
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
         </div>
       </CardContent>
     </Card>
