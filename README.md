@@ -28,6 +28,8 @@ The Ferrari Store is an online store for selling collectible items, offering a c
 
 ### Build Procedures
 
+For reviwers: if you wish to only try the site there is no need to build it, you can just acess trought the link above.
+
 This project is divided into two parts:
 
 * `frontend` (Next.js)
