@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configuração do CORS
-app.use(cors({ credentials: true, origin: 'https://ferraristore.vercel.app' }));
+app.use(cors({ credentials: true, origin: ['https://ferraristore.vercel.app', 'http://localhost:3000'] }));
 
 // Diretório de arquivos estáticos
 app.use('/public', express.static(path.join(__dirname, 'public')));
