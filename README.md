@@ -129,6 +129,41 @@ All website pages feature **fully responsive design**, ensuring an optimized use
 
 # Comments about the code
 
+## Project Architecture
+**Monorepo structure** with separate frontend and backend services for independent development and deployment.
+
+```
+final-version/
+├── frontend/    # Next.js 15 + TypeScript + Tailwind CSS
+└── backend/     # Node.js + Express + MongoDB
+```
+
+## Frontend (Next.js)
+- **Tech Stack**: Next.js 15, TypeScript, Tailwind CSS, shadcn/ui
+- **Architecture**: App Router with Server Components
+- **Features**: Modern React patterns, Suspense boundaries, proper error handling
+
+## Backend (Node.js/Express)
+- **Architecture**: MVC pattern with clear separation
+- **Database**: MongoDB with Mongoose ODM
+- **Security**: JWT authentication, bcrypt hashing, role-based access
+- **File Handling**: Multer for image/audio uploads
+
+## Key Features
+**Authentication**: JWT-based with role management  
+**Cart System**: Real-time updates with stock validation  
+**Order Management**: Complete workflow with payment integration  
+**Admin Panel**: Product and order management  
+**File Upload**: Support for images and audio files  
+**Responsive Design**: Mobile-first approach  
+
+## Code Quality
+- TypeScript for type safety
+- Consistent error handling
+- Proper middleware implementation
+- Environment-based configuration
+- Security best practices
+
 # Test Plan and Test Results
 
 #### User (Client) login and registration
