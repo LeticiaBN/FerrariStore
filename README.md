@@ -80,7 +80,7 @@ npm run dev
 
 ---
 
-## For reviwers 
+## For reviewers 
 
 You can create your own account to test the user features.
 
