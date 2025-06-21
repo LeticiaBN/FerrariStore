@@ -15,6 +15,8 @@
 
 [https://ferraristore.vercel.app](https://ferraristore.vercel.app)
 
+**Note:** Please wait 1 minute after opening the website for the backend to reload.
+
 ### Admin Access for Testing
 
 To test the **admin features** of the platform, use the credentials below to log in:
