@@ -33,9 +33,18 @@ const audioStorage = multer.diskStorage({
 const imageUpload = multer({
   storage: imageStorage,
   fileFilter(req, file, cb) {
-    if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
-      return cb(new Error("Por favor, envie apenas jpg, jpeg ou png!"));
+    // Validar por MIME type
+    const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      return cb(new Error("Por favor, envie apenas arquivos PNG, JPG ou JPEG!"));
     }
+    
+    // Validação adicional por extensão
+    if (!file.originalname.match(/\.(png|jpg|jpeg)$/i)) {
+      return cb(new Error("Por favor, envie apenas arquivos com extensão PNG, JPG ou JPEG!"));
+    }
+    
     cb(undefined, true);
   },
 });
@@ -69,12 +78,28 @@ const productUpload = multer({
   }),
   fileFilter(req, file, cb) {
     if (file.fieldname === 'images') {
-      if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) {
-        return cb(new Error("Por favor, envie apenas jpg, jpeg ou png para imagens!"));
+      // Validar por MIME type
+      const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+      
+      if (!allowedMimeTypes.includes(file.mimetype)) {
+        return cb(new Error("Por favor, envie apenas arquivos PNG, JPG ou JPEG para imagens!"));
+      }
+      
+      // Validação adicional por extensão
+      if (!file.originalname.match(/\.(png|jpg|jpeg)$/i)) {
+        return cb(new Error("Por favor, envie apenas arquivos com extensão PNG, JPG ou JPEG para imagens!"));
       }
     } else if (file.fieldname === 'soundFile') {
-      if (!file.originalname.match(/\.(mp3|wav|ogg|m4a)$/)) {
-        return cb(new Error("Por favor, envie apenas mp3, wav, ogg ou m4a para áudio!"));
+      // Validar por MIME type para áudio
+      const allowedAudioMimeTypes = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp4'];
+      
+      if (!allowedAudioMimeTypes.includes(file.mimetype)) {
+        return cb(new Error("Por favor, envie apenas arquivos MP3, WAV, OGG ou M4A para áudio!"));
+      }
+      
+      // Validação adicional por extensão
+      if (!file.originalname.match(/\.(mp3|wav|ogg|m4a)$/i)) {
+        return cb(new Error("Por favor, envie apenas arquivos com extensão MP3, WAV, OGG ou M4A para áudio!"));
       }
     }
     cb(undefined, true);
